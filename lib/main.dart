@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:template_project/Page/first_page.dart';
 import 'package:template_project/Page/signin_page.dart';
 import 'package:template_project/Page/signup_page.dart';
-import 'package:template_project/Provider/appProvider.dart';
+import 'package:template_project/Provider/user_provider.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-    create: (_) => Appprovider(),
+    create: (_) => UserProvider(),
     child: MyApp(),
   ));
 }
