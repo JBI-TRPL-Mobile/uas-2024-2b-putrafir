@@ -1,30 +1,30 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class UserService {
-  static Future<String> _getFilePath() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return '${directory.path}/user.json';
-  }
-
-  static Future<void> saveUser(String email, String password) async {
-    final path = await _getFilePath();
-    final file = File(path);
-    Map<String, String> user = {'email': email, 'password': password};
-    String json = jsonEncode(user);
-    await file.writeAsString(json);
-  }
-
-  static Future<Map<String, String>?> getUser() async {
-    final path = await _getFilePath();
-    final file = File(path);
-
-    if (await file.exists()) {
-      String json = await file.readAsString();
-      Map<String, String> user = Map<String, String>.from(jsonDecode(json));
-      return user;
+  static Future<Map<String, String>?> loadUserData() async {
+    try {
+      String jsonString = await rootBundle.loadString('Data/user.json');
+      Map<String, dynamic> jsonData = jsonDecode(jsonString);
+      return Map<String, String>.from(jsonData);
+    } catch (e) {
+      print('gagal membaca data: $e');
+      return null;
     }
-    return null;
+  }
+
+  static Future<bool> verifyLogin(String email, String password) async {
+    try {
+      final userData = await loadUserData();
+      if (userData != null) {
+        if (userData['email'] == email && userData['password'] == password) {
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      print('error selama verifikasi: $e');
+      return false;
+    }
   }
 }

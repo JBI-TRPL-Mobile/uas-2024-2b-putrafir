@@ -1,11 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:template_project/Provider/user_provider.dart';
 
 class SigninPage extends StatelessWidget {
-  const SigninPage({super.key});
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  // const SigninPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -26,6 +31,7 @@ class SigninPage extends StatelessWidget {
             ),
             SizedBox(height: 30.0),
             TextField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Enter Email',
                 hintText: 'yourmail@gmail.com',
@@ -34,6 +40,7 @@ class SigninPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             TextField(
+              controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
@@ -51,7 +58,20 @@ class SigninPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                String email = emailController.text;
+                String password = passwordController.text;
+                bool success =
+                    await context.read<UserProvider>().login(email, password);
+
+                if (success) {
+                  Navigator.pushReplacementNamed(context, '/home');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Email atau password salah!')),
+                  );
+                }
+              },
               child: Text('Sign In'),
             ),
             SizedBox(height: 20.0),

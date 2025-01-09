@@ -1,8 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:template_project/Models/user_service.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  // SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +33,16 @@ class SignupPage extends StatelessWidget {
             ),
             SizedBox(height: 30.0),
             TextField(
+              controller: nameController,
               decoration: InputDecoration(
                 labelText: 'Name',
-                hintText: 'yourmail@gmail.com',
+                hintText: 'your name',
                 border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 20.0),
             TextField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Enter Email',
                 hintText: 'yourmail@gmail.com',
@@ -42,6 +51,7 @@ class SignupPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             TextField(
+              controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
@@ -51,6 +61,7 @@ class SignupPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             TextField(
+              controller: confirmPasswordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Confirm',
@@ -68,8 +79,24 @@ class SignupPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {},
-              child: Text('Sign In'),
+              onPressed: () async {
+                String name = nameController.text;
+                String email = emailController.text;
+                String password = passwordController.text;
+                String confirm = confirmPasswordController.text;
+
+                // if (password == confirm) {
+                //   await UserService.saveUser(name, email, password);
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(content: Text("User Signed Up Successfully")),
+                //   );
+                // } else {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(content: Text("Passwords do not match")),
+                //   );
+                // }
+              },
+              child: Text('Sign Up'),
             ),
             SizedBox(height: 20.0),
             Center(child: Text('or sign in with')),
@@ -98,7 +125,7 @@ class SignupPage extends StatelessWidget {
                   style: TextStyle(color: Colors.black),
                   children: [
                     TextSpan(
-                        text: 'Sign Up',
+                        text: 'Sign In',
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,

@@ -43,7 +43,9 @@ class FirstPage extends StatelessWidget {
                   child: Text("Sign in"),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/signup');
+                  },
                   child: Text("Sign up"),
                 ),
               ],
