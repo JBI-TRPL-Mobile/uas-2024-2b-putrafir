@@ -22,7 +22,7 @@ class MyHomePage extends StatelessWidget {
           children: [
             SizedBox(height: 40.0),
             Text(
-              'Hello, ${userProvider.name}',
+              'Hello, John',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20.0),
