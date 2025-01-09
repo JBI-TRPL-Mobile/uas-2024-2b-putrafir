@@ -3,11 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:template_project/Provider/user_provider.dart';
 
-class SigninPage extends StatelessWidget {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  // const SigninPage({super.key});
+class SigninPage extends StatefulWidget {
+  @override
+  State<SigninPage> createState() => _SigninPageState();
+}
 
+class _SigninPageState extends State<SigninPage> {
+  final emailController = TextEditingController();
+
+  final passwordController = TextEditingController();
+
+  bool isLoading = false;
+
+  // const SigninPage({super.key});
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -57,23 +65,33 @@ class SigninPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () async {
-                String email = emailController.text;
-                String password = passwordController.text;
-                bool success =
-                    await context.read<UserProvider>().login(email, password);
-
-                if (success) {
-                  Navigator.pushReplacementNamed(context, '/home');
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Email atau password salah!')),
-                  );
-                }
-              },
-              child: Text('Sign In'),
-            ),
+            isLoading
+                ? CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      bool success = await Provider.of<UserProvider>(context,
+                              listen: false)
+                          .login(
+                        emailController.text,
+                        passwordController.text,
+                      );
+                      setState(() {
+                        isLoading = false;
+                      });
+                      if (success) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Login Successful")));
+                        Navigator.pushReplacementNamed(context, '/home');
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Invalid email or password")));
+                      }
+                    },
+                    child: Text('Login'),
+                  ),
             SizedBox(height: 20.0),
             Center(child: Text('or sign in with')),
             SizedBox(height: 10.0),
