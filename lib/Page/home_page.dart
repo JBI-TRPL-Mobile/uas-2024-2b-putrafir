@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:template_project/Provider/data_provider.dart';
 import 'package:template_project/Provider/user_provider.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -8,7 +9,11 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    userProvider.loadUser();
+    final dataProvider = Provider.of<DataProvider>(context);
+
+    userProvider.loadUsers();
+    dataProvider.loadCategories();
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -56,18 +61,19 @@ class MyHomePage extends StatelessWidget {
                 ),
               ],
             ),
-            Wrap(
-              spacing: 10.0,
-              runSpacing: 10.0,
-              children: [
-                _categoryChip('Development'),
-                _categoryChip('IT & Software'),
-                _categoryChip('UI/UX Design'),
-                _categoryChip('Business'),
-                _categoryChip('Finance & Business'),
-                _categoryChip('Personal'),
-              ],
-            ),
+            if (dataProvider.categories.isEmpty)
+              if (dataProvider.categories.isEmpty)
+                Center(
+                  child: CircularProgressIndicator(),
+                )
+              else
+                Wrap(
+                  spacing: 10.0,
+                  runSpacing: 10.0,
+                  children: dataProvider.categories
+                      .map((category) => _categoryChip(category))
+                      .toList(),
+                ),
             SizedBox(height: 20.0),
             Text(
               'Top Courses',

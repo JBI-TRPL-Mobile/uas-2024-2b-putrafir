@@ -2,28 +2,30 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 class UserService {
-  static Future<Map<String, String>?> loadUserData() async {
+  static Future<List<Map<String, String>>?> loadUserData() async {
     try {
       String jsonString = await rootBundle.loadString('Data/user.json');
-      Map<String, dynamic> jsonData = jsonDecode(jsonString);
-      return Map<String, String>.from(jsonData);
+      List<dynamic> jsonData = jsonDecode(jsonString);
+      return jsonData.map((user) => Map<String, String>.from(user)).toList();
     } catch (e) {
-      print('gagal membaca data: $e');
+      print('Gagal membaca data: $e');
       return null;
     }
   }
 
   static Future<bool> verifyLogin(String email, String password) async {
     try {
-      final userData = await loadUserData();
-      if (userData != null) {
-        if (userData['email'] == email && userData['password'] == password) {
-          return true;
+      final usersData = await loadUserData();
+      if (usersData != null) {
+        for (var user in usersData) {
+          if (user['email'] == email && user['password'] == password) {
+            return true;
+          }
         }
       }
       return false;
     } catch (e) {
-      print('error selama verifikasi: $e');
+      print('Error selama verifikasi: $e');
       return false;
     }
   }
