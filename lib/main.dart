@@ -6,6 +6,7 @@ import 'package:template_project/Page/signin_page.dart';
 import 'package:template_project/Page/signup_page.dart';
 import 'package:template_project/Provider/data_provider.dart';
 import 'package:template_project/Provider/user_provider.dart';
+import 'package:template_project/Widget/BottomNavigation.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/signin': (context) => SigninPage(),
         '/signup': (context) => SignupPage(),
         '/home': (context) => MyHomePage(),
+        '/navigation': (context) => Bottomnavigation(),
       },
     );
   }

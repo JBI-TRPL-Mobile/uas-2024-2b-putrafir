@@ -84,7 +84,7 @@ class _SigninPageState extends State<SigninPage> {
                       if (success) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("Login Successful")));
-                        Navigator.pushReplacementNamed(context, '/home');
+                        Navigator.pushReplacementNamed(context, '/navigation');
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Invalid email or password")));

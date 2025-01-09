@@ -62,18 +62,17 @@ class MyHomePage extends StatelessWidget {
               ],
             ),
             if (dataProvider.categories.isEmpty)
-              if (dataProvider.categories.isEmpty)
-                Center(
-                  child: CircularProgressIndicator(),
-                )
-              else
-                Wrap(
-                  spacing: 10.0,
-                  runSpacing: 10.0,
-                  children: dataProvider.categories
-                      .map((category) => _categoryChip(category))
-                      .toList(),
-                ),
+              Center(
+                child: CircularProgressIndicator(),
+              )
+            else
+              Wrap(
+                spacing: 10.0,
+                runSpacing: 10.0,
+                children: dataProvider.categories
+                    .map((category) => _categoryChip(category))
+                    .toList(),
+              ),
             SizedBox(height: 20.0),
             Text(
               'Top Courses',
@@ -93,14 +92,15 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Courses'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   items: [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Message'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      //   ],
+      // ),
     );
   }
 
