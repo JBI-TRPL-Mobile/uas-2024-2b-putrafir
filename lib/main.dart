@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:template_project/Provider/appProvider.dart';
+import 'package:template_project/page/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => Appprovider(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-      title: Text("Template Project"),
-    )));
+    return MaterialApp(debugShowCheckedModeBanner: false, home: MyHomePage());
   }
 }
