@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class FirstPage extends StatelessWidget {
+  const FirstPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,9 @@ class MyHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/signin');
+                  },
                   child: Text("Sign in"),
                 ),
                 ElevatedButton(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:template_project/Page/first_page.dart';
+import 'package:template_project/Page/signin_page.dart';
+import 'package:template_project/Page/signup_page.dart';
 import 'package:template_project/Provider/appProvider.dart';
-import 'package:template_project/page/home.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -15,6 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: MyHomePage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      // home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FirstPage(),
+        '/signin': (context) => SigninPage(),
+        '/signup': (context) => SignupPage(),
+      },
+    );
   }
 }
